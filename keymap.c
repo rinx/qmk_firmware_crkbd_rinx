@@ -146,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------||------+------+------+------+------+------|
  * |      |      |W C/P |W COPY|WPASTE|      ||      |      |      |KEYMAP|      |      |
  * `------+------+------+------+------+------||------+------+------+------+------+------'
- *                      |      |XXXXXX|      ||      |      |      |
+ *                      |      |XXXXXX|      ||      |ADJUST|      |
  *                      `--------------------'`--------------------'
  */
   [_FUNCT] = LAYOUT( \
@@ -154,8 +154,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, M(MAC_COPY_PASTE), MACCOPY, MACPASTE, _______, \
     _______, _______, _______, _______, _______, _______, \
     _______, _______, M(WIN_COPY_PASTE), WINCOPY, WINPASTE, _______, \
-    _______, _______, _______, M(SEND_KEYMAP_URI), _______, _______, \
-    _______, _______, _______, _______, _______, _______ \
+    _______, _______, _______, M(SEND_KEYMAP_URI), _______,_______, \
+    _______, _______, _______, _______, ADJUST, _______ \
   ),
 
 /* Arrow
@@ -244,15 +244,6 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-// Setting ADJUST layer RGB back to default
-void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    layer_on(layer3);
-  } else {
-    layer_off(layer3);
-  }
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // if (record->event.pressed) {
   //   set_keylog(keycode, record);
@@ -285,20 +276,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case FUNCT:
       if (record->event.pressed) {
         layer_on(_FUNCT);
-        update_tri_layer_RGB(_FUNCT, _ARROW, _ADJUST);
       } else {
         layer_off(_FUNCT);
-        update_tri_layer_RGB(_FUNCT, _ARROW, _ADJUST);
       }
       return false;
       break;
     case ARROW:
       if (record->event.pressed) {
         layer_on(_ARROW);
-        update_tri_layer_RGB(_FUNCT, _ARROW, _ADJUST);
       } else {
         layer_off(_ARROW);
-        update_tri_layer_RGB(_FUNCT, _ARROW, _ADJUST);
       }
       return false;
       break;
