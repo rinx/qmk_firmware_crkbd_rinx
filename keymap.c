@@ -391,14 +391,6 @@ void matrix_scan_user(void) {
                 //     rgblight_mode(15);
                 // }
                 break;
-            case _ADMINI:
-                if (TOG_STATUS) {
-                } else {
-                    RGB_current_mode = rgblight_config.mode;
-                    TOG_STATUS = true;
-                    rgblight_mode(20);
-                }
-                break;
             default:
                 TOG_STATUS = false;
                 rgblight_mode(RGB_current_mode);
