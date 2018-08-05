@@ -359,7 +359,7 @@ void matrix_scan_user(void) {
                 } else {
                     RGB_current_mode = rgblight_config.mode;
                     TOG_STATUS = true;
-                    rgblight_mode(27);
+                    // rgblight_mode(27);
                 }
                 break;
             case _ARROW:
